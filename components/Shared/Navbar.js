@@ -45,9 +45,9 @@ return (
                 <Link href="/view-signals" legacyBehavior>
                     <a className="px-4 py-2 rounded-lg hover:bg-gray-400">Trade Signals</a>
                 </Link>
-                {/* <Link href="/contact" legacyBehavior>
-                    <a className="px-4 py-2 rounded-lg hover:bg-gray-400">Contact</a>
-                </Link> */}
+                <Link href="/trade-history" legacyBehavior>
+                    <a className="px-4 py-2 rounded-lg hover:bg-gray-400">Trade History</a>
+                </Link>
             </div>
             <div className="flex items-center space-x-4 font-[family-name:var(--font-geist-poppins)]">
                 <button className="px-4 py-2 bg-blue-500 rounded-lg hover:bg-blue-700 text-white font-bold">
