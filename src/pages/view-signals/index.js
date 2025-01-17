@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ViewSignal = () => {
     const [signals, setSignals] = useState([]);
+    const [walletDetails, setWalletDetails] = useState(null);
 
     useEffect(() => {
         const fetchSignals = async () => {
@@ -20,15 +21,26 @@ const ViewSignal = () => {
             }
         };
 
+        const fetchWalletDetails = async () => {
+            try {
+                const data = await apiService.getWalletDetails();
+                setWalletDetails(data);
+            } catch (error) {
+                console.error('Error fetching wallet details:', error);
+            }
+        };
+
+        fetchWalletDetails();
+
         fetchSignals();
     }, []);
 
     return (
         <div className="flex flex-col h-screen">
-            <Navbar />
+            <Navbar data={walletDetails} />
             <ToastContainer />
             <div className="flex flex-1">
-                <Sidebar className="bg-slate-500" />
+                {/* <Sidebar className="bg-slate-500" /> */}
                 <main className="flex-1 p-6 bg-gray-100">
                     <div className="container mx-auto">
                         <h2 className="text-2xl font-bold mb-4">View Signals</h2>
