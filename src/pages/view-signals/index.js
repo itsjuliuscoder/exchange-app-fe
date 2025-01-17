@@ -43,7 +43,7 @@ const ViewSignal = () => {
                                     <th className="py-2 px-4 border-b text-left text-gray-600">Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className='text-black'>
                                 {signals.length === 0 ? (
                                     <tr>
                                         <td colSpan="6" className="py-2 px-4 border-b text-center">
