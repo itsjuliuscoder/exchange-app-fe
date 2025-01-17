@@ -1,7 +1,7 @@
 import React from 'react';
-import Sidebar from '../../components/Sidebar';
-import Footer from '../../components/Footer';
-import Navbar from '../../components/Navbar';
+import Sidebar from '../../../components/Shared/Sidebar';
+import Footer from '../../../components/Shared/Footer';
+import Navbar from '../../../components/Shared/Navbar';
 
 const ProfilePage = () => {
     return (
