@@ -1,13 +1,30 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from '../../../components/Shared/Sidebar';
 import Navbar from '../../../components/Shared/Navbar';
 import Footer from '../../../components/Shared/Footer';
 import Link from 'next/link';
+import apiService from '../../../lib/api';
 
 const Dashboard = () => {
+
+    const [walletDetails, setWalletDetails] = useState(null);
+
+    useEffect(() => {
+        const fetchWalletDetails = async () => {
+            try {
+                const data = await apiService.getWalletDetails();
+                setWalletDetails(data);
+            } catch (error) {
+                console.error('Error fetching wallet details:', error);
+            }
+        };
+
+        fetchWalletDetails();
+    }, []);
+
     return (
         <div className="flex flex-col h-screen">
-          <Navbar  />
+          <Navbar data={walletDetails} />
           <div className="flex flex-1">
             {/* <Sidebar className="bg-slate-500" /> */}
             <main className="flex-1 p-6 bg-gray-100">

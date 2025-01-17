@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../../components/Shared/Navbar';
 import Sidebar from '../../../components/Shared/Sidebar';
 import Footer from '../../../components/Shared/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import apiService from '../../../lib/api';
+import { useRouter } from 'next/router';
 
 
 const SignalForm = () => {
@@ -15,6 +16,22 @@ const SignalForm = () => {
         amount: '',
         direction: ''
     });
+
+    const [walletDetails, setWalletDetails] = useState(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const fetchWalletDetails = async () => {
+            try {
+                const data = await apiService.getWalletDetails();
+                setWalletDetails(data);
+            } catch (error) {
+                console.error('Error fetching wallet details:', error);
+            }
+        };
+
+        fetchWalletDetails();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,9 +45,29 @@ const SignalForm = () => {
         e.preventDefault();
         try {
             const response = await apiService.createSignal(formData);
-            toast.success('Signal created successfully!');
+            if (response){
+                toast.success('Signal created successfully!');
+            }
+            console.log('Signal created:', response);
+            setFormData({
+                symbol: '',
+                interval: '',
+                unit: '',
+                amount: '',
+                direction: ''
+            });
+            setTimeout(() => {
+                router.push('/view-signals');
+            }, 3000);
         } catch (error) {
             toast.error('An error occurred while creating the signal.');
+            setFormData({
+                symbol: '',
+                interval: '',
+                unit: '',
+                amount: '',
+                direction: ''
+            });
         }
         console.log('Form Data Submitted:', formData);
         // Add your form submission logic here
@@ -38,7 +75,8 @@ const SignalForm = () => {
 
     return (
         <div className="flex flex-col h-screen">
-          <Navbar  />
+          <Navbar data={walletDetails} />
+          <ToastContainer />
           <div className="flex flex-1">
             {/* <Sidebar className="bg-slate-500" /> */}
             <main className="flex-1 p-6 bg-gray-100">

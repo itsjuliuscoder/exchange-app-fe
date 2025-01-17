@@ -6,8 +6,10 @@ import Image from 'next/image';
 import apiService from '../../../lib/api';
 
 
-const Trade = () => {
 
+
+
+const Securities = () => {
     const [formData, setFormData] = useState({
         symbol: '',
         interval: '',
@@ -24,22 +26,12 @@ const Trade = () => {
         });
     };
 
-    const handleTrade = (action, signal) => {
-        console.log(`Action: ${action}`, signal);
-        // Add your trade logic here
-    };
-
     const [cryptoMarkets, setCryptoMarkets] = useState([]);
-    const [signalData, setSignalData] = useState([]);
     const [walletDetails, setWalletDetails] = useState(null);
-    const [openDropdown, setOpenDropdown] = useState(null);
-    const [openModal, setOpenModal] = useState(false);
-    
     useEffect(() => {
         const fetchData = async () => {
-            const data = await apiService.getAllSignals();
-            console.log(data);
-            setSignalData(data);
+            const data = await apiService.getCryptoData();
+            setCryptoMarkets(data);
         };
 
         const fetchWalletDetails = async () => {
@@ -69,29 +61,33 @@ const Trade = () => {
             {/* <Sidebar className="bg-slate-500" /> */}
             <main className="flex-1 p-6 bg-gray-100">
                 <div className="container mx-auto">
-                    <h2 className="text-2xl font-bold mb-4">Trade</h2>
+                    <h2 className="text-2xl font-bold mb-4">Securities</h2>
                     <div className="grid grid-cols-4 gap-4">
-                        {signalData.map((signal, index) => (
-                            <div key={index} className="p-4 bg-white text-black rounded shadow">
-                                <h3 className="text-xl font-semibold">{signal.symbol}</h3>
-                                <p>Interval: {signal.interval}</p>
-                                <p>Unit: {signal.units}</p>
-                                <p>Amount: {signal.amount}</p>
-                                <p>Direction: {signal.direction}</p>
-                                <div className="flex space-x-8">
-                                    <a href="#" className="text-blue-500" onClick={() => handleTrade('buy', signal)}>Buy</a>
-                                    <a href="#" className="text-red-500 float-right" onClick={() => handleTrade('sell', signal)}>Sell</a>
-                                </div>
+                        {/* x` */}
+                    {cryptoMarkets.map((market, index) => (
+                        <div key={index} className="border p-4 flex flex-col items-center">
+                            <Image
+                                src={market.image}
+                                alt={market.name}
+                                width={150}
+                                height={150}
+                                className="mb-4"
+                            />
+                            <h3 className="text-lg font-bold">{market.name}</h3>
+                            <p className="text-gray-500">{market.symbol}</p>
+                            <div className="flex space-x-2">
+                                <a href="#" className="text-blue-500">Buy</a>
+                                <a href="#" className="text-red-500">Sell</a>
                             </div>
-                        ))}
+                        </div>
+                    ))}
                     </div>
                 </div>
             </main>
           </div>
           <Footer />
-          
         </div>
     );
 };
 
-export default Trade;
+export default Securities;
