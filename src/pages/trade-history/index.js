@@ -47,13 +47,13 @@ const TradeHistory = () => {
                                 {tradeData.length === 0 ? (
                                     <tr>
                                         <td colSpan="6" className="py-2 px-4 border-b text-center">
-                                            No signals available. <button className="ml-2 px-4 py-2 bg-blue-500 text-white rounded">Create Trade</button>
+                                            No Trade History available. <button className="ml-2 px-4 py-2 bg-blue-500 text-white rounded">Create Trade</button>
                                         </td>
                                     </tr>
                                 ) : (
                                     tradeData.map((trade, index) => (
                                         <tr key={index}>
-                                            <td className="py-2 px-4 border-b">{trade.signalDetails.symbol}</td>
+                                            <td className="py-2 px-4 border-b">{trade.signalDetails && trade.signalDetails.symbol ? trade.signalDetails.symbol : 'No Symbol'}</td>
                                             <td className="py-2 px-4 border-b">{trade.interval}</td>
                                             <td className="py-2 px-4 border-b">{trade.units}</td>
                                             <td className="py-2 px-4 border-b">{trade.amount}</td>
