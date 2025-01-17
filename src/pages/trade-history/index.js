@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const TradeHistory = () => {
     const [tradeData, setTradeData] = useState([]);
+    const [walletDetails, setWalletDetails] = useState(null);
 
     useEffect(() => {
         const fetchTrade = async () => {
@@ -21,12 +22,23 @@ const TradeHistory = () => {
             }
         };
 
+        const fetchWalletDetails = async () => {
+            try {
+                const data = await apiService.getWalletDetails();
+                setWalletDetails(data);
+            } catch (error) {
+                console.error('Error fetching wallet details:', error);
+            }
+        };
+
+        fetchWalletDetails();
+
         fetchTrade();
     }, []);
 
     return (
         <div className="flex flex-col h-screen">
-            <Navbar />
+            <Navbar data={walletDetails} />
             <ToastContainer />
             <div className="flex flex-1">
                 <main className="flex-1 p-6 bg-gray-100">
