@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const DepositPage = () => {
+const SellAssetsPage = () => {
   const [formData, setFormData] = useState({
     userId: "",
     signalId: "",
@@ -19,18 +19,6 @@ const DepositPage = () => {
       signalId: payload.signalId,
       tradeType: payload.tradeType,
     });
-  };
-
-  const handleTrade = (action, signal) => {
-    console.log(`Action: ${action}`, signal);
-    setOpenModal(true);
-    const payload = {
-      userId: signal.userId,
-      signalId: signal._id,
-      tradeType: action,
-    };
-    setPayload(payload);
-    // Add your trade logic here
   };
 
   const handleSubmit = async (e) => {
@@ -154,4 +142,4 @@ const DepositPage = () => {
   );
 };
 
-export default DepositPage;
+export default SellAssetsPage;

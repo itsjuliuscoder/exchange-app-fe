@@ -12,7 +12,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
